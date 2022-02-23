@@ -1,0 +1,27 @@
+[submodule "OpenSGX/opensgx"]
+	path = OpenSGX/opensgx
+	url = https://github.com/sslab-gatech/opensgx.git
+[submodule "SGX-LKL/sgx-lkl-musl"]
+	path = SGX-LKL/sgx-lkl-musl
+	url = https://github.com/lsds/sgx-lkl-musl.git
+[submodule "GoTEE/gotee"]
+	path = GoTEE/gotee
+	url = https://github.com/epfl-dcsl/gotee
+[submodule "Enarx/enarx"]
+	path = Enarx/enarx
+	url = https://github.com/enarx/enarx
+[submodule "Gramine/gramine"]
+	path = Gramine/gramine
+	url = https://github.com/gramineproject/gramine.git
+[submodule "Gramine/graphene"]
+	path = Gramine/graphene
+	url = https://github.com/gramineproject/graphene.git
+[submodule "EDP/rust"]
+	path = EDP/rust
+	url = https://github.com/rust-lang/rust.git
+[submodule "OE/openenclave"]
+	path = OE/openenclave
+	url = https://github.com/openenclave/openenclave
+[submodule "SGX-SDK/linux-sgx"]
+	path = SGX-SDK/linux-sgx
+	url = https://github.com/intel/linux-sgx.git
