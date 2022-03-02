@@ -55,8 +55,16 @@ LoC count is the sum of
 and
 [`exit.S`](https://github.com/openenclave/openenclave/blob/7249aa685d8faad177bd2096f07a70d26e9ab1c0/enclave/core/sgx/exit.S).
 
-**LoC changed.** TODO: add git submodules to point to (all) analyzed versions
-of the repos and instructions to reproduce the LoC counts.
+**LoC changed.** We provide detailed READMEs with instructions, output logs,
+and git submodules pointing to the analyzed versions of each runtime in the
+respective subdirectories.
+
+To checkout the git submodules and reproduce the LoC counts, proceed as
+follows:
+
+```bash
+$ ./calculate_line_changes.sh
+```
 
 # ABI patch timelines data
 
