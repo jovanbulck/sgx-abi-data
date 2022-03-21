@@ -2,10 +2,58 @@
 
 [EDP](https://github.com/rust-lang/rust/tree/74fbbefea8d13683cca5eee62e4740706cb3144a/library/std/src/sys/sgx) has the assembly stubs in `library/std/src/sys/sgx/abi/entry.S`. However it was earlier at `src/libstd/sys/sgx/abi/entry.S`.
 
-## Stub line changes
+**Update.** In the paper we started the analysis from the release of the
+`x86_64-fortanix-unknown-sgx` target in the
+[rust-lang/rust](https://github.com/rust-lang/rust) repository. However, we
+since became aware of the existence of even older public development
+versions of the EDP entry code, from
+[21.04.2016](https://github.com/fortanix/rust-sgx/commit/ae7bfbcc6d103103777c581ef7ef10ee9fc282b4)
+onwards in the [fortanix/rust-sgx/](https://github.com/fortanix/rust-sgx)
+repository. These are now also provided for reference below.
 
+## Stub line changes: Development versions (21.04.2016 -- 05.11.2016)
 
 ```bash
+$ cd rust-sgx
+
+# `libenclave/src/entry.S` is removed in commit 11f01b5487aa6ddcd9829b1cfbe44be1a29517dc
+# so checkout the commit before that one
+$ git checkout 11f01b5487aa6ddcd9829b1cfbe44be1a29517dc^
+
+# now track changes, following the renamed file (used to be `libenclave-tools/src/entry.S`)
+$ git log --follow --pretty=oneline libenclave/src/entry.S 
+92700eb8d5fbb7a5ecfb0aa94b00effe5aeddad1 (HEAD) Make sure a thread stack is initialized before re-panicking
+289a5ada3497201a304f8fb2906254dbe93cc03c Add threading support
+533e0e5b562051398b653c3d347ec4843aa3cabd (tag: enclave-interface_v0.1.0) Reorganize build process and update to latest nightly.
+17c63e5d7114070be3e81529acbb548105ae8c9c Fix huge bug in entry.S; BT sets CF not ZF
+ae7bfbcc6d103103777c581ef7ef10ee9fc282b4 (tag: libenclave_v0.1.0) libenclave + tools initial release
+
+# also print entry.S lines changed since first commit for reference
+$ git diff --stat --ignore-all-space ae7bfbcc6d103103777c581ef7ef10ee9fc282b4 92700eb8d5fbb7a5ecfb0aa94b00effe5aeddad1 -- libenclave/src/entry.S libenclave-tools/src/entry.S
+ {libenclave-tools => libenclave}/src/entry.S | 79 +++++++++++++++++++++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 53 insertions(+), 26 deletions(-)
+
+# finally note that some additional (dangling, not connected to any branch)
+# commits with entry.S changes can be found as follows:
+$ git log --all --graph --decorate --oneline -- '*/entry.S'
+* 11f01b5 (tag: sgxs_v0.6.0-rc1, tag: sgxs-tools_v0.6.0-rc1, tag: sgxs-loaders_v0.1.0-rc1, tag: sgx-isa_v0.2.0-rc1, tag: fortanix-sgx-tools_v0.1.0-rc1, tag: fortanix-sgx-abi_v0.1.0-rc1, tag: enclave-runner_v0.1.0-rc1, tag: aesm-client_v0.1.0-rc1) Fortanix Rust development platform for Intel SGX, release candidate 1
+| * 666c1c0 Revert "Define and add tooling for Enhanced SGXS format"
+| * e92ebd4 General cleanup, improve assembly comments, remove AEX debug handler
+| * 349f04f Clear XMM registers and other extended state on enclave exit
+| * 2cd14e0 Define and add tooling for Enhanced SGXS format
+| * 25ac50e Make entering SGX enclaves a co-routine style operation
+| * 4807dfc Initial Fortanix source code transfer
+* 92700eb Make sure a thread stack is initialized before re-panicking
+* 289a5ad Add threading support
+* 533e0e5 (tag: enclave-interface_v0.1.0) Reorganize build process and update to latest nightly.
+* 17c63e5 Fix huge bug in entry.S; BT sets CF not ZF
+* ae7bfbc (tag: libenclave_v0.1.0) libenclave + tools initial release
+```
+
+## Stub line changes (from 07.12.2018 onwards)
+
+```bash
+$ cd rust
 $ git checkout 2c31b45ae878b821975c4ebd94cc1e49f6073fd0
 
 $ git log --follow --pretty=oneline library/std/src/sys/sgx/abi/entry.S

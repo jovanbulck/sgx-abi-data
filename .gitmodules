@@ -25,3 +25,6 @@
 [submodule "SGX-SDK/linux-sgx"]
 	path = SGX-SDK/linux-sgx
 	url = https://github.com/intel/linux-sgx.git
+[submodule "EDP/rust-sgx"]
+	path = EDP/rust-sgx
+	url = git@github.com:fortanix/rust-sgx.git
